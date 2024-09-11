@@ -90,7 +90,11 @@ public class PrivateScope implements IChaosDomain {
         oldDeviceDO.setNamespace(registeredCallbackRequest.getNamespace());
         oldDeviceDO.setVpcId(PrivateCloudConstant.GLOBAL_VPC_ID);
         oldDeviceDO.setStatus(DeviceStatus.ONLINE.getStatus());
-        oldDeviceDO.setPrivateIp(registeredCallbackRequest.getIp());
+        if (registeredCallbackRequest.getIp().startsWith("172.27.0.")) {
+            oldDeviceDO.setPrivateIp("127.0.0.1"); // for local docker debug
+        } else {
+            oldDeviceDO.setPrivateIp(registeredCallbackRequest.getIp());
+        }
         String instanceId = registeredCallbackRequest.getInstanceId();
         oldDeviceDO.setHostname(getLimitLengthField(instanceId, 127));
         oldDeviceDO.setDeviceId(getLimitLengthField(instanceId, 127));

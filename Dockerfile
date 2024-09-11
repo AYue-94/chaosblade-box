@@ -11,4 +11,6 @@ WORKDIR /app
 
 COPY ./chaosblade-box-starter/target/chaosblade-box-1.0.4.jar .
 
-ENTRYPOINT ["java", "-Duser.timezone=Asia/Shanghai", "-jar", "chaosblade-box-1.0.4.jar"]
+ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Duser.timezone=Asia/Shanghai", "-jar", "chaosblade-box-1.0.4.jar"]
+
+# docker build . -t chaosblade-box:1.0.4
